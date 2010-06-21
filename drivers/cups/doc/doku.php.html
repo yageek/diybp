@@ -1,0 +1,981 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html dir="ltr" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml" lang="en"><head>
+
+	
+				<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="generator" content="DokuWiki Release 2008-05-05">
+<meta name="robots" content="index,follow">
+<meta name="date" content="2010-02-14T21:46:17+0000">
+<meta name="keywords" content="slackware,cups">
+<link rel="search" type="application/opensearchdescription+xml" href="http://alien.slackbook.org/dokuwiki/lib/exe/opensearch.php" title="Alien's Wiki">
+<link rel="start" href="http://alien.slackbook.org/dokuwiki/">
+<link rel="contents" href="http://alien.slackbook.org/dokuwiki/doku.php?id=slackware:cups&amp;do=index" title="Index">
+<link rel="alternate" type="application/rss+xml" title="Recent Changes" href="http://alien.slackbook.org/dokuwiki/feed.php">
+<link rel="alternate" type="application/rss+xml" title="Current Namespace" href="http://alien.slackbook.org/dokuwiki/feed.php?mode=list&amp;ns=slackware">
+<link rel="alternate" type="text/html" title="Plain HTML" href="http://alien.slackbook.org/dokuwiki/doku.php?do=export_xhtml&amp;id=slackware:cups">
+<link rel="alternate" type="text/plain" title="Wiki Markup" href="http://alien.slackbook.org/dokuwiki/doku.php?do=export_raw&amp;id=slackware:cups">
+<link rel="stylesheet" media="all" type="text/css" href="doku.php_fichiers/css_002.css">
+<link rel="stylesheet" media="screen" type="text/css" href="doku.php_fichiers/css.css">
+<link rel="stylesheet" media="print" type="text/css" href="doku.php_fichiers/css_003.css">
+<script type="text/javascript" charset="utf-8" src="doku.php_fichiers/js.php"></script>
+		<title>Printing with CUPS - Alien's Wiki</title>
+					<link rel="shortcut icon" href="http://alien.slackbook.org/dokuwiki/lib/tpl/monobook-2008-07-30/user/favicon.ico">
+				<style type="text/css" media="screen,projection">/*<![CDATA[*/ @import "/dokuwiki/lib/tpl/monobook-2008-07-30/monobook/main.css"; /*]]>*/</style>
+
+		<link rel="stylesheet" type="text/css" media="print" href="doku.php_fichiers/commonPrint.css">
+		<link rel="stylesheet" type="text/css" media="print" href="doku.php_fichiers/print.css">
+
+		<script type="text/javascript" src="doku.php_fichiers/wikibits.js"></script>
+		<style type="text/css" media="screen,projection">/*<![CDATA[*/
+		@import "/dokuwiki/lib/tpl/monobook-2008-07-30/wikipedia/en/Common.css";
+		@import "/dokuwiki/lib/tpl/monobook-2008-07-30/wikipedia/en/Monobook.css";
+		@import "/dokuwiki/lib/tpl/monobook-2008-07-30/dokuwiki/doku.css";
+		@import "/dokuwiki/lib/tpl/monobook-2008-07-30/lang/en/lang.css";
+		@import "/dokuwiki/lib/tpl/monobook-2008-07-30/user/Common.css";
+		@import "/dokuwiki/lib/tpl/monobook-2008-07-30/user/Monobook.css";
+		/*]]>*/</style>
+    <!--[if lt IE 5.5000]><style type="text/css">@import "/dokuwiki/lib/tpl/monobook-2008-07-30/monobook/IE50Fixes.css";</style><![endif]-->
+    <!--[if IE 5.5000]><style type="text/css">@import "/dokuwiki/lib/tpl/monobook-2008-07-30/monobook/IE55Fixes.css";</style><![endif]-->
+    <!--[if IE 6]><style type="text/css">@import "/dokuwiki/lib/tpl/monobook-2008-07-30/monobook/IE60Fixes.css";</style><![endif]-->
+    <!--[if IE 7]><style type="text/css">@import "/dokuwiki/lib/tpl/monobook-2008-07-30/monobook/IE70Fixes.css";</style><![endif]-->
+    <!--[if lt IE 7]><script type="text/javascript" src="/dokuwiki/lib/tpl/monobook-2008-07-30/common/IEFixes.js"></script>
+
+    <meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+	</head><body class="mediawiki ns-0 ltr">
+		<div id="globalWrapper">
+			<div id="column-content">
+				<div id="content">
+					<a name="top" id="top"></a>
+					<div id="siteNotice">
+<p>
+<strong>Welcome to Eric Hameleers (Alien BOB)'s Wiki pages.</strong>
+</p>
+
+<p>
+</p><form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+<i>If you want to support my work, please consider a small donation:</i>
+<input name="cmd" value="_s-xclick" type="hidden">
+<input name="encrypted" value="-----BEGIN PKCS7-----MIIHTwYJKoZIhvcNAQcEoIIHQDCCBzwCAQExggEwMIIBLAIBADCBlDCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20CAQAwDQYJKoZIhvcNAQEBBQAEgYBVy/LRlsae6JdrniIAJ0KK/OkIiioYw69bgRul9U/hHAVaZwavCG3WkhVST9h2WYqJlfqDQJjA6rqE4smSS3IOoY9GIwpNCsGfqC8+l7Wtbc3L5zSqdGA+hB9ppGawm29IEMbAjKDQckDslxuG6WYezSIWyopELZECwQiusBXkMDELMAkGBSsOAwIaBQAwgcwGCSqGSIb3DQEHATAUBggqhkiG9w0DBwQI7E1Gr06oEIeAgaip1CvOO/TGt5QM09JZ57OzU2vkppNsTorqPTRDKa5yeCDlLPu+ZVBwCtXcPTQ4DM+Lk2ko4fPIZI0HzWEoYMzbSBL9M37aYu5mPo2JX8r98yFsGb7iQHmU+thKHZzHiYWbgoJIQFJKRwaH+CATcgvgYGBydTLqM49JZaTRKy2ovlksxo5etbfJheYMsxq3QbwWxSoeIvXwpK8st8c7lPWoH92uFRuDS8CgggOHMIIDgzCCAuygAwIBAgIBADANBgkqhkiG9w0BAQUFADCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20wHhcNMDQwMjEzMTAxMzE1WhcNMzUwMjEzMTAxMzE1WjCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20wgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBAMFHTt38RMxLXJyO2SmS+Ndl72T7oKJ4u4uw+6awntALWh03PewmIJuzbALScsTS4sZoS1fKciBGoh11gIfHzylvkdNe/hJl66/RGqrj5rFb08sAABNTzDTiqqNpJeBsYs/c2aiGozptX2RlnBktH+SUNpAajW724Nv2Wvhif6sFAgMBAAGjge4wgeswHQYDVR0OBBYEFJaffLvGbxe9WT9S1wob7BDWZJRrMIG7BgNVHSMEgbMwgbCAFJaffLvGbxe9WT9S1wob7BDWZJRroYGUpIGRMIGOMQswCQYDVQQGEwJVUzELMAkGA1UECBMCQ0ExFjAUBgNVBAcTDU1vdW50YWluIFZpZXcxFDASBgNVBAoTC1BheVBhbCBJbmMuMRMwEQYDVQQLFApsaXZlX2NlcnRzMREwDwYDVQQDFAhsaXZlX2FwaTEcMBoGCSqGSIb3DQEJARYNcmVAcGF5cGFsLmNvbYIBADAMBgNVHRMEBTADAQH/MA0GCSqGSIb3DQEBBQUAA4GBAIFfOlaagFrl71+jq6OKidbWFSE+Q4FqROvdgIONth+8kSK//Y/4ihuE4Ymvzn5ceE3S/iBSQQMjyvb+s2TWbQYDwcp129OPIbD9epdr4tJOUNiSojw7BHwYRiPh58S1xGlFgHFXwrEBb3dgNbMUa+u4qectsMAXpVHnD9wIyfmHMYIBmjCCAZYCAQEwgZQwgY4xCzAJBgNVBAYTAlVTMQswCQYDVQQIEwJDQTEWMBQGA1UEBxMNTW91bnRhaW4gVmlldzEUMBIGA1UEChMLUGF5UGFsIEluYy4xEzARBgNVBAsUCmxpdmVfY2VydHMxETAPBgNVBAMUCGxpdmVfYXBpMRwwGgYJKoZIhvcNAQkBFg1yZUBwYXlwYWwuY29tAgEAMAkGBSsOAwIaBQCgXTAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcBMBwGCSqGSIb3DQEJBTEPFw0wOTA1MDQyMDU2NDdaMCMGCSqGSIb3DQEJBDEWBBTUQXfOrH0S58rTHb7R5maziC5XVjANBgkqhkiG9w0BAQEFAASBgF0qsJnVVFT8AWkjOzPGdHye5x7Hkt21cXtvnz9s3IuZS9V65DCYjqAyZVV2GMwxAP8rRFa6s0qR2Q3A1hiWKt+C6PmTu2zT/anuLiHKQJcS7X1xJAf7ohU5yuodFykcYdkHX7b5FhVhoEHILEiqcH8c824uexdJt6FNFBiRIg/E-----END PKCS7-----
+" type="hidden">
+<input src="doku.php_fichiers/button_donate.gif" name="submit" alt="PayPal - The safer, easier way to pay online." type="image" border="0">
+<img alt="" src="doku.php_fichiers/pixel.html" height="1" width="1" border="0">
+</form>
+
+</div>					<div id="bodyContent">
+						<div class="dokuwiki">
+							<!-- start content -->
+							
+							<div id="catlinks"><p class="catlinks"><span class="bchead">Trace:</span> <span class="bcsep">»</span> <span class="curid"><a href="http://alien.slackbook.org/dokuwiki/doku.php?id=slackware:cups" class="breadcrumbs" title="slackware:cups">Printing with CUPS</a></span></p></div>							<div style="display: none;" id="qsearch__out" class="ajax_qsearch JSpopup"></div>
+<!-- TOC START -->
+<div class="toc">
+<div style="cursor: pointer;" class="tocheader toctoggle" id="toc__header"><span style="cursor: pointer;" class="toc_close" id="toc__toggle"><span>−</span></span>Table of Contents</div>
+<div id="toc__inside">
+
+<ul class="toc">
+<li class="level1"><div class="li"><span class="li"><a href="#printing_with_cups" class="toc">Printing with <span class="search_hit">CUPS</span></a></span></div>
+<ul class="toc">
+<li class="level2"><div class="li"><span class="li"><a href="#setting_up_the_cups_service" class="toc">Setting up the <span class="search_hit">CUPS</span> service</a></span></div>
+<ul class="toc">
+<li class="level3"><div class="li"><span class="li"><a href="#etc_cups_cupsd.conf" class="toc">/etc/<span class="search_hit">cups</span>/<span class="search_hit">cups</span>d.conf</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#etc_cups_client.conf" class="toc">/etc/<span class="search_hit">cups</span>/client.conf</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#creating_print_queues" class="toc">Creating print queues</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#securing_the_admin_web_interface" class="toc">Securing the admin web interface</a></span></div>
+<ul class="toc">
+<li class="level4"><div class="li"><span class="li"><a href="#ssl_encryption" class="toc">SSL encryption</a></span></div></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="level2"><div class="li"><span class="li"><a href="#configuring_cups_clients" class="toc">Configuring <span class="search_hit">CUPS</span> clients</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#making_cups_work_with_samba" class="toc">Making <span class="search_hit">CUPS</span> work with Samba</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#a_pdf_printer_for_cups" class="toc">A PDF printer for <span class="search_hit">CUPS</span></a></span></div>
+<ul class="toc">
+<li class="level3"><div class="li"><span class="li"><a href="#required_software" class="toc">Required software</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#installing_a_new_cups_backend" class="toc">Installing a new <span class="search_hit">CUPS</span> <span class="search_hit">backend</span></a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#using_the_pdf_printer" class="toc">Using the PDF printer</a></span></div></li>
+</ul>
+</li>
+<li class="level2"><div class="li"><span class="li"><a href="#pdf_printer_scripts" class="toc">PDF Printer Scripts</a></span></div></li></ul>
+</li></ul>
+</div>
+</div>
+<!-- TOC END -->
+
+
+
+<h1><a name="printing_with_cups" id="printing_with_cups">Printing with <span class="search_hit">CUPS</span></a></h1>
+<div class="level1">
+
+<p>
+
+<img src="doku.php_fichiers/fixme.gif" class="middle" alt="FIXME"> <em class="u">this page is a work in progress</em> <img src="doku.php_fichiers/fixme.gif" class="middle" alt="FIXME">
+
+</p>
+<hr>
+
+<p>
+<span class="search_hit">CUPS</span> (the <em>Common UNIX Printing System</em>) is now the default printing subsystem in Slackware, after years of faithful service by the <em>lprng</em> package which is no longer part of Slackware. The commandline <em>lpr</em> program that some of you use is in fact part of <span class="search_hit">CUPS</span>, but it emulates the old lpr program that has been known in Linux/UNIX for ages and which was the way to print if you had <em>lprng</em> installed in Slackware. But a set of commandline tools is not all that <span class="search_hit">CUPS</span> installs on your system.
+</p>
+
+<p>
+<span class="search_hit">CUPS</span> has a browser-based graphical user interface (check out yours at <a href="http://localhost:631/" class="urlextern" title="http://localhost:631/">http://localhost:631/</a>) for administering the service, like creating print queues, monitoring, deleting and restarting print jobs and such.<br>
+ Not everything can be done through the graphical interface though. The basic initial setup of the <span class="search_hit">CUPS</span> service is still a matter of hand-editing certain configuration files. 
+</p>
+
+<p>
+<span class="search_hit">CUPS</span> can act as a server (when it has a
+queue configured that prints to a physical device) or a client (when
+there is no local printer configured but instead your job submissions
+are sent to a <span class="search_hit">CUPS</span> server on the network). The big plus of networked <span class="search_hit">CUPS</span> services is that they are able to talk to each other, so that printing from one <span class="search_hit">CUPS</span> machine (the client) to another <span class="search_hit">CUPS</span> machine (a <span class="search_hit">CUPS</span>
+server with attached printer) works automagically - the client machine
+will pick up the server print queues that are advertised on the network
+without you needing to configure anything.
+</p>
+
+</div>
+
+<h2><a name="setting_up_the_cups_service" id="setting_up_the_cups_service">Setting up the <span class="search_hit">CUPS</span> service</a></h2>
+<div class="level2">
+
+<p>
+
+Slackware comes with a functional <span class="search_hit">CUPS</span> service out of the box. All you have to do is make the file <code>/etc/rc.d/rc.<span class="search_hit">cups</span></code> executable and start the server. After that you can point your browser to <a href="http://localhost:631/" class="urlextern" title="http://localhost:631/">http://localhost:631/</a> for the administratitive interface, and start adding queues for local printers or remote <span class="search_hit">CUPS</span> servers. 
+</p>
+<pre class="code">chmod +x /etc/rc.d/rc.<span class="search_hit">cups</span>
+/etc/rc.d/rc.<span class="search_hit">cups</span> start
+</pre>
+
+<p>
+ If you need to setup a <span class="search_hit">CUPS</span> network server (other PC's should be able to print to your machine) then there is some extra work ahead.
+</p>
+
+<p>
+The way Slackware runs <span class="search_hit">CUPS</span> out of the box is that only access from the <code>localhost</code> is allowed. The print queues which you define will not be advertised on your network.<br>
+ Access to <code>localhost</code> is safe - no one else but you on your computer can talk to the <code>localhost</code> address (which is tied to the <em>loopback interface</em> or ”<em>lo</em>” interface).
+</p>
+
+<p>
+</p><p></p><div class="notetip">If <code>localhost</code> does not work for you when you type the <acronym title="Uniform Resource Locator">URL</acronym> in the browser, try the IP address for localhost which is <code>127.0.0.1</code>. The <acronym title="Uniform Resource Locator">URL</acronym> would then look like this: <a href="http://127.0.0.1:631/" class="urlextern" title="http://127.0.0.1:631/">http://127.0.0.1:631/</a>. But in any case, this would indicate that you messed up your <code>/etc/hosts</code> file which should contain (among others) the line 
+
+<pre class="code">127.0.0.1       localhost</pre>
+
+<p>
+ If that line is not present, you should add it. It's absence will break quite many network services.
+
+</p></div>
+
+
+<p>
+For the sake of this article, I will present several examples containing IP addresses. Our example network will be as follows:
+
+</p>
+<ul>
+<li class="level1"><div class="li"> Network hosts have IP addresses in the range <strong><code>192.168.0.1</code></strong> to <strong><code>192.168.0.254</code></strong>, i.e. an address range described by the network/netmask values of <strong><code>192.168.0.0/255.255.255.0</code></strong> (or the equivalent notation <strong><code>192.168.0.0/24</code></strong>).</div>
+</li>
+<li class="level1"><div class="li"> Our own computer is configured with the IP address <strong><code>192.168.0.5</code></strong></div>
+</li>
+<li class="level1"><div class="li"> Another computer running a network-accessible <span class="search_hit">CUPS</span> server has the IP address <strong><code>192.168.0.1</code></strong></div>
+</li>
+</ul>
+
+</div>
+
+<h3><a name="etc_cups_cupsd.conf" id="etc_cups_cupsd.conf">/etc/<span class="search_hit">cups</span>/<span class="search_hit">cups</span>d.conf</a></h3>
+<div class="level3">
+
+<p>
+
+The <code>/etc/<span class="search_hit">cups</span>/<span class="search_hit">cups</span>d.conf</code> file is the <em>server configuration file</em> for <span class="search_hit">CUPS</span>.
+It determines how the job scheduler will run. The default content of
+this file (stripped of - very useful - comments and empty lines) looks
+like this: </p>
+<pre class="code">LogLevel info
+Port 631
+&lt;Location /&gt;
+Order Deny,Allow
+Deny From All
+Allow From 127.0.0.1
+&lt;/Location&gt;
+&lt;Location /admin&gt;
+AuthType Basic
+AuthClass System
+Order Deny,Allow
+Deny From All
+Allow From 127.0.0.1
+&lt;/Location&gt;
+</pre>
+
+<p>
+I will briefly go through the most important lines.
+</p>
+<ul>
+<li class="level1"><div class="li"> The listen address: <pre class="code">Port 631</pre>
+
+<p>
+ This tells that the <span class="search_hit">CUPS</span> server
+will listen at TCPIP port 631 for incoming print job submissions, and
+also runs the administrative Web interface at the port. Port 631 is the
+<em>IPP</em> port, which stands for <em>Internet Printing Protocol</em>.
+</p>
+</div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li"> Print service access control <pre class="code">&lt;Location /&gt;
+Order Deny,Allow
+Deny From All
+Allow From 127.0.0.1
+&lt;/Location&gt;
+</pre>
+
+<p>
+ This tells us that access to the root <acronym title="Uniform Resource Locator">URL</acronym> (<em>Location / </em> i.e. <a href="http://localhost:631/" class="urlextern" title="http://localhost:631/">http://localhost:631/</a>) is limited to the <code>127.0.0.1</code> IP address exclusively. Remember, <code>127.0.0.1</code> is the IP address for the <code>localhost</code> interface. Essentially this statement means that no one can access your <span class="search_hit">CUPS</span> print service from the network. If you <strong>do</strong> want to grant access, you will have to add another <em>Allow</em>
+line here. Remember the example network layout from the first section?
+We will allow all computers in our local network access to the <span class="search_hit">CUPS</span> printing service by adding the line <strong>Allow From 192.168.0.*</strong> so that the previous section will become 
+</p>
+<pre class="code">&lt;Location /&gt;
+Order Deny,Allow
+Deny From All
+Allow From 127.0.0.1
+Allow From 192.168.0.*
+&lt;/Location&gt;
+</pre>
+</div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li"> Administration interface access control: <pre class="code">&lt;Location /admin&gt;
+AuthType Basic
+AuthClass System
+Order Deny,Allow
+Deny From All
+Allow From 127.0.0.1
+&lt;/Location&gt;
+</pre>
+
+<p>
+ The location <code>/admin</code> (i.e. the <acronym title="Uniform Resource Locator">URL</acronym> <a href="http://localhost:631/admin" class="urlextern" title="http://localhost:631/admin">http://localhost:631/admin</a>) is protected using <em>Basic Authentication</em> - the well-known username/password dialog of your browser when you attempt to access this <acronym title="Uniform Resource Locator">URL</acronym> for the first time.<br>
+ By default, the only username/password combination that works here is that of the <strong>root</strong> account!<br>
+ 
+</p>
+</div>
+</li>
+</ul>
+
+<p>
+Since Basic Authentication sends passwords unencrypted to the server,
+it makes sense that access to the admin interface is restricted to the
+local host - this is what the line ”<em>Allow From 127.0.0.1</em>” is for. If you want access to your <span class="search_hit">CUPS</span> server's administrative interface across the network, it is desirable to protect your password from network sniffers by using <em><acronym title="Secure Sockets Layer">SSL</acronym> encryption</em> (i.e.using https:// URLs instead of http://). I will show you how to secure your access in the <a href="#securing_the_admin_web_interface" title="slackware:cups ↵" class="wikilink1">Securing the admin web interface</a> section.
+</p>
+
+<p>
+Now, I told you that <span class="search_hit">CUPS</span> services can talk to each other - they use the <em>IPP</em> protocol for that. Print queues on one <span class="search_hit">CUPS</span> server will automatically be available for use on another computer running <span class="search_hit">CUPS</span>. An example: you take your Slackware laptop with you and plug it into the network of your exmployer. If there is a <span class="search_hit">CUPS</span> server on that network, the queues on that server will suddenly pop up on your local <span class="search_hit">CUPS</span> server! Zero config here people. The big question is of course: how does one <span class="search_hit">CUPS</span> program find other <span class="search_hit">CUPS</span> programs in the network?<br>
+ 
+The answer is, you must make the <span class="search_hit">CUPS</span> server advertise itself on the network. These are the two lines you will add to your <code><span class="search_hit">cups</span>d.conf</code> file to make that happen: 
+</p>
+<pre class="code">BrowseAddress @LOCAL
+BrowseAllow 192.168.0.*
+</pre>
+
+<p>
+ Meaning that your <span class="search_hit">CUPS</span> server will use all interfaces that it considers local. Any point-to-point interfaces (ppp, dial-up lines for instance) are <em>not</em> considered local. Also it will accept and answer browse requests from computers in our example IP range. A <em>browse request</em> is a query from another <span class="search_hit">CUPS</span>
+program, looking for peers on the network. Our server will now answer
+those browse requests, thereby making it's own print queues available
+for use by other <span class="search_hit">CUPS</span> clients in the network. The complete <code><span class="search_hit">cups</span>d.conf</code> file would look like 
+</p>
+<pre class="code">LogLevel info
+Port 631
+BrowseAddress @LOCAL
+BrowseAllow 192.168.0.*
+&lt;Location /&gt;
+Order Deny,Allow
+Deny From All
+Allow From 127.0.0.1
+Allow From 192.168.0.*
+&lt;/Location&gt;
+&lt;Location /admin&gt;
+AuthType Basic
+AuthClass System
+Order Deny,Allow
+Deny From All
+Allow From 127.0.0.1
+&lt;/Location&gt;
+</pre>
+
+<p>
+ You'll notice that I also added that line <strong>Allow From 192.168.0.*</strong> otherwise network connections from outside would still be refused. I leave access to the <code>/admin</code> <acronym title="Uniform Resource Locator">URL</acronym> restricted to <code>localhost</code> for now. Later on, we will add some security by means of <acronym title="Secure Sockets Layer">SSL</acronym> encryption.
+</p>
+
+</div>
+
+<h3><a name="etc_cups_client.conf" id="etc_cups_client.conf">/etc/<span class="search_hit">cups</span>/client.conf</a></h3>
+<div class="level3">
+
+</div>
+
+<h3><a name="creating_print_queues" id="creating_print_queues">Creating print queues</a></h3>
+<div class="level3">
+
+</div>
+
+<h3><a name="securing_the_admin_web_interface" id="securing_the_admin_web_interface">Securing the admin web interface</a></h3>
+<div class="level3">
+
+<p>
+
+In this section I will show you how you can prevent other people on the network from accessing your <span class="search_hit">CUPS</span>
+server's administrative interface by password protecting it and using
+encryption. It would be silly if all of a sudden your print queue would
+be disabled by a joker…
+</p>
+
+<p>
+You've probably noticed the line ”<em>AuthClass System</em>” in the definition of the ”<code>/admin</code>” location. This line defines the “class” of users (in fact a Linux group taken from the <code>/etc/group</code> file) which <span class="search_hit">CUPS</span> considers as being “System users”. By default, <span class="search_hit">CUPS</span> will require the authenticating user to be a member of the ”<code>sys</code>”, ”<code>system</code>”, or ”<code>root</code>” groups (the check is done in that order). That requirement fits only the <code>root</code>
+account, so that explains my statement of one of the previous sections.
+You can change the name of this group by uncommenting the line <strong><code>#SystemGroup sys</code></strong> in the <code><span class="search_hit">cups</span>d.conf</code> file, and changing the work <code>sys</code> to some other existing group. Alternatively, you can add your own acccount to the <code>sys</code> group of course.
+</p>
+
+<p>
+Belonging to the right group is not enough though.<br>
+ Suppose you have added “<strong><code>SystemGroup wheel</code></strong>” to <code><span class="search_hit">cups</span>d.conf</code> so that anyone in the <code>wheel</code> group can administer <span class="search_hit">CUPS</span> (I like to use <em>wheel</em> for administrative tasks). You will now have to create a password file for <span class="search_hit">CUPS</span> which holds your user account and an associated password. <span class="search_hit">CUPS</span>
+cannot read your Linux account/password (it needs PAM for that, and
+Slackware does not use PAM). If the password file does not yet exist,
+we create it as follows, assuming your user account is “alien”: </p>
+<pre class="code">lppasswd -g wheel -a alien
+</pre>
+
+<p>
+ If the password file existed, then a line for the <em>alien</em> account would have been appended to it.<br>
+ The contents of that file look like this now: 
+</p>
+<pre class="code"># cat /etc/<span class="search_hit">cups</span>/passwd.md5
+     alien:wheel:01234567890abcde1234567890abcde12
+</pre>
+
+</div>
+
+<h4><a name="ssl_encryption" id="ssl_encryption">SSL encryption</a></h4>
+<div class="level4">
+
+<p>
+
+<img src="doku.php_fichiers/fixme.gif" class="middle" alt="FIXME">
+</p>
+
+<p>
+TODO
+</p>
+
+</div>
+
+<h2><a name="configuring_cups_clients" id="configuring_cups_clients">Configuring <span class="search_hit">CUPS</span> clients</a></h2>
+<div class="level2">
+
+<p>
+
+TODO
+</p>
+
+</div>
+
+<h2><a name="making_cups_work_with_samba" id="making_cups_work_with_samba">Making <span class="search_hit">CUPS</span> work with Samba</a></h2>
+<div class="level2">
+
+<p>
+
+Samba will pick up the <span class="search_hit">CUPS</span> printers and make them available to your Windows computers in the LAN when you have these lines in the <code>[global]</code> section of your <code>/etc/samba/smb.conf</code> file:
+
+</p>
+<pre class="code">   load printers = yes
+   printcap name = <span class="search_hit">cups</span>
+   printing = <span class="search_hit">cups</span>
+   print command = lpr -oraw -r -P'%p' %s
+   lpq command = /usr/bin/lpq -P%p
+</pre>
+
+<p>
+ You should also have a <code>[printers]</code> section in <code>smb.conf</code> that would look like this: 
+</p>
+<pre class="code">[printers]
+   comment = All Printers
+   path = /var/spool/samba
+   browseable = no
+   # Set public = yes to allow user 'guest account' to print
+   # A synonym for 'public = yes' is: 'guest ok = yes'
+   public = yes
+   writable = no
+   printable = yes
+</pre>
+
+<p>
+ The print spool directory which Samba uses (<em>/var/spool/samba</em>) must be different from the <span class="search_hit">CUPS</span> spool directory! Check if the directory exists (usually it should) and if it is writable by all: 
+</p>
+<pre class="code"># ls -l /var/spool | grep samba
+drwxrwxrwt   2 root   root    4096 2007-12-09 18:26 samba/
+</pre>
+
+<p>
+ The <em>'t'</em> in <code>drwxrwxrwt</code> means that every user
+can write in this directory but their files cannot be deleted by anyone
+but themselves. If the directory does not exist, or it's permissions
+are incorrect, you can run the following three commands to fix that: </p>
+<pre class="code">mkdir -p /var/spool/samba
+chown -R root:root /var/spool/samba
+chmod 1777 /var/spool/samba
+</pre>
+
+<p>
+When print jobs from the Windows computers never show up in <span class="search_hit">CUPS</span>, you should increase the debug level for your <span class="search_hit">CUPS</span> server: 
+</p>
+<pre class="code">LogLevel debug
+</pre>
+
+<p>
+ and restart the <span class="search_hit">CUPS</span> server by running: 
+</p>
+<pre class="code">/etc/rc.d/rc.<span class="search_hit">cups</span> restart
+</pre>
+
+<p>
+ You will see the following error messages in <code>/var/log/<span class="search_hit">cups</span>/error_log</code>: 
+</p>
+<pre class="code">    E [11/Nov/2004:20:30:25 +0100] print_job: Unsupported format 'application/octet-stream'!
+    I [11/Nov/2004:20:30:25 +0100] Hint: Do you have the raw file printing rules enabled?
+    D [11/Nov/2004:20:30:25 +0100] Sending error: client-error-document-format-not-supported
+</pre>
+
+<p>
+ To resolve this, you need to edit two files (you will find the affected lines at the end) and afterwards restart <span class="search_hit">CUPS</span>:
+</p>
+<ul>
+<li class="level1"><div class="li"> In file <code>/etc/<span class="search_hit">cups</span>/mime.types</code> uncomment <code>application/octet-stream</code></div>
+</li>
+<li class="level1"><div class="li"> In file <code>/etc/<span class="search_hit">cups</span>/mime.convs</code> uncomment <code>application/octet-stream  application/vnd.<span class="search_hit">cups</span>-raw 0 - </code></div>
+</li>
+</ul>
+
+<p>
+
+</p><p></p><div class="noteclassic"> Sometimes you will find that Samba does not pick up changes to your <span class="search_hit">CUPS</span> configuration, especially when you edited the <code>smb.conf</code> file. If you have computers connected to Samba shares and do not want to disconnect them, you can force the <code>smbd</code>
+processes on the Linux server to re-read their configuration while
+running. The following command will do that by sending a SIGHUP or <em>hangup signal</em> to these running processes: 
+
+<pre class="code">killall -HUP smbd</pre>
+
+<p>
+ Even though it uses the command <code>killall</code> this does <em class="u">not</em> mean that any process gets killed!
+</p></div>
+
+
+</div>
+
+<h2><a name="a_pdf_printer_for_cups" id="a_pdf_printer_for_cups">A PDF printer for <span class="search_hit">CUPS</span></a></h2>
+<div class="level2">
+
+<p>
+
+Usually, the <span class="search_hit">CUPS</span> print queues
+will print to paper of course. But there are cases when you want an
+electronic image of some document, or web page, that you do not need on
+paper. The <a href="http://en.wikipedia.org/wiki/PDF" class="interwiki iw_wp" title="http://en.wikipedia.org/wiki/PDF">PDF</a>
+file format is the ideal candidate for this, since this format is
+supported on virtually all operating systems and architectures.<br>
+ 
+So, we need to add a print queue to <span class="search_hit">CUPS</span> which does not print our submitted jobs to paper sheets but instead generates a <acronym title="Portable Document Format">PDF</acronym> file from our input, and makes this file available to us in some way.<br>
+ 
+This section describes exactly how to set this up, leaving the choice up to you whether you want your <acronym title="Portable Document Format">PDF</acronym> files delivered to you via email, or have them dumped into a directory of your choice.<br>
+ 
+This setup uses no proprietary software to create the <acronym title="Portable Document Format">PDF</acronym> files - all you need is already present on your Slackware machine. For those with several computers in a network, having a <span class="search_hit">CUPS</span> server to generate the <acronym title="Portable Document Format">PDF</acronym>'s
+has the additional advantage that it does not matter what the client
+computer is. Your Linux and Windows workstation, or your Mac, will be
+equally able to use this pdfprinter as long as your <span class="search_hit">CUPS</span> service allows job submissions from the network.
+</p>
+
+<p>
+If you are running a network server with Samba, your <span class="search_hit">CUPS</span> pdfprinter will be integrated into the Samba configuration if you tell it to use <span class="search_hit">CUPS</span> for printing support (which is the default behaviour anyway). Windows clients will be able to generate <acronym title="Portable Document Format">PDF</acronym>'s by using a Samba print queue.
+</p>
+
+<p>
+I came across an implementation of a <acronym title="Portable Document Format">PDF</acronym> printer that supports <span class="search_hit">CUPS</span> and Samba. It can be found at <a href="http://www.linux-als-server.de/html/special-pdfprinter.php" class="urlextern" title="http://www.linux-als-server.de/html/special-pdfprinter.php">http://www.linux-als-server.de/html/special-pdfprinter.php</a>. My recipe below is based on the instructions found at that <acronym title="Uniform Resource Locator">URL</acronym>. Since the original text is in german, my article will help you non-german speaking persons setting this up I hope <img src="doku.php_fichiers/icon_smile.gif" class="middle" alt=":-)">
+</p>
+
+</div>
+
+<h3><a name="required_software" id="required_software">Required software</a></h3>
+<div class="level3">
+
+<p>
+
+You will need to meet the following software requirements on your <span class="search_hit">CUPS</span> machine:
+</p>
+<ul>
+<li class="level1"><div class="li"> <span class="search_hit">CUPS</span> installed and configured (naturally)</div>
+</li>
+<li class="level1"><div class="li"> GhostScript installed</div>
+</li>
+</ul>
+
+<p>
+Only if you want to deliver <acronym title="Portable Document Format">PDF</acronym> files by email, you'll need these too:
+</p>
+<ul>
+<li class="level1"><div class="li"> Sendmail configured to deliver emails</div>
+</li>
+<li class="level1"><div class="li"> <acronym title="Practical Extraction and Report Language"><span class="search_hit">Perl</span></acronym> installed, with the additional module <acronym title="Multipurpose Internet Mail Extension">MIME</acronym>::Entity. If you don't have <acronym title="Multipurpose Internet Mail Extension">MIME</acronym>::Entity installed, you can compile it yourself (it is part of <acronym title="Multipurpose Internet Mail Extension">MIME</acronym>::tools, which in turn requires the IO::stringy and Mail <span class="search_hit">perl</span> modules), or use the program <a href="http://software.jaos.org/#cpan2tgz" class="urlextern" title="http://software.jaos.org/#cpan2tgz">cpan2tgz</a> to create Slackware packages for it yourself, or download my precompiled Slackware packages (<a href="http://www.slackware.com/%7Ealien/slackbuilds/perl-modules/" class="urlextern" title="http://www.slackware.com/~alien/slackbuilds/perl-modules/">in my repository</a>).</div>
+</li>
+</ul>
+
+</div>
+
+<h3><a name="installing_a_new_cups_backend" id="installing_a_new_cups_backend">Installing a new <span class="search_hit">CUPS</span> <span class="search_hit">backend</span></a></h3>
+<div class="level3">
+
+<p>
+
+<span class="search_hit">CUPS</span> uses so-called <em><span class="search_hit">backend</span>s</em> to support output to printing devices. Examples of these <span class="search_hit">backend</span>s are <em>ipp</em>, <em>lpd</em> and <em>socket</em>; they show up in the <span class="search_hit">CUPS</span> <acronym title="Uniform Resource Identifier">URI</acronym> that you define when creating a new <span class="search_hit">CUPS</span> print queue, for instance printing via IPP: ”<code>ipp://192.168.0.1/print/hp6</code>”.<br>
+ 
+We are going to create a <em class="u">new</em> <span class="search_hit">backend</span>, which supports printing to <acronym title="Portable Document Format">PDF</acronym> files and delivering these files to the correct end location (mailbox or directory path). The <span class="search_hit">backend</span> is going to be called <strong>pdf</strong> since that name is not yet being used.
+
+</p>
+<ul>
+<li class="level1"><div class="li"> First off, let's start with creating the necessary directories (as root). The <acronym title="Portable Document Format">PDF</acronym> files are going to be output to a temporary location (the <em>spool</em> directory) before being emailed to their final destination. We'll be using a new directory ”<code>/var/spool/pdf</code>”
+for that, and make sure that everyone has write access there. If you do
+not want to use email delivery, this spool directory must be accessible
+by everyone who wants to use your pdfprinter. That means if you offer
+the pdfprinter as a network service to other computers in your network,
+you will have to export this spool directory using Samba or NFS. It is
+not within the scope of this article to describe how you would do that.<br>
+ <br>
+ The executables (in the form of Shell and <acronym title="Practical Extraction and Report Language"><span class="search_hit">Perl</span></acronym> scripts) for the <code>pdf</code> <span class="search_hit">backend</span> are going to be stored in another new directory called <code>/usr/lib/<span class="search_hit">cups</span>/pdf</code>: <pre class="code">mkdir -p /var/spool/pdf
+chmod 1777  /var/spool/pdf
+mkdir /usr/lib/<span class="search_hit">cups</span>/pdf
+chmod 775 /usr/lib/<span class="search_hit">cups</span>/pdf
+</pre>
+
+<p>
+ The <code>chmod 1777 /var/spool/pdf</code> makes <code>/var/spool/pdf</code> writable for everyone, plus sets the <em>sticky bit</em> which means that other users will be unable to delete files that they do not own themselves.
+</p>
+</div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li"> Next, we are going the create the file that provides or “pdf <span class="search_hit">backend</span>” functionality. Defining a new <span class="search_hit">backend</span> is really no more than creating an executable file called in <span class="search_hit">CUPS</span>'s <span class="search_hit">backend</span>s directory <code>/usr/lib/<span class="search_hit">cups</span>/<span class="search_hit">backend</span></code> - this file's name will become the name of the <span class="search_hit">backend</span>. So, for the “pdf” <span class="search_hit">backend</span> we create the file <code>/usr/lib/<span class="search_hit">cups</span>/<span class="search_hit">backend</span>/pdf</code> and make this a shellscript, the contents of which you can find in the section below - <a href="#pdf_printer_scripts" title="slackware:cups ↵" class="wikilink1">PDF Printer Scripts</a>. Do not forget to make this new “pdf” script executable: <pre class="code">chmod 755 /usr/lib/<span class="search_hit">cups</span>/<span class="search_hit">backend</span>/pdf
+</pre>
+
+<p>
+ This <span class="search_hit">backend</span> will in turn call two other scripts which we shall place in the library directory <code>/usr/lib/<span class="search_hit">cups</span>/pdf</code> - see next bullet point.<br>
+ The reason the script did not get world-executable permissions, is that the <span class="search_hit">backend</span> program needs to be run as the <em>root</em> user - <span class="search_hit">CUPS</span> will only do that if the program is not world-executable. Otherwise, the <span class="search_hit">backend</span> would be run using the unprivileged user account, typically “lp”. <em>The script needs to run as root in order to be able to change ownership of the resulting <acronym title="Portable Document Format">PDF</acronym> file to the user who printed it.</em>
+</p>
+</div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li"> Now that we have the <code>pdf</code> <span class="search_hit">backend</span> file in place, the next step is to create the two helper scripts that our <code>pdf</code> script uses. One script does the conversion of PostScript to <acronym title="Portable Document Format">PDF</acronym>, while the second does the actual email delivery.<br>
+ Install these two files called ”<code>ps2pdf.<span class="search_hit">cups</span></code>” and ”<code>sendpdf</code>” into the <span class="search_hit">cups</span> library directory which we just created: <code>/usr/lib/<span class="search_hit">cups</span>/pdf</code>. You can find these scripts in the section below called <a href="#pdf_printer_scripts" title="slackware:cups ↵" class="wikilink1">PDF Printer Scripts</a>. Do not forget to make these files executable: <pre class="code">chmod 755 /usr/lib/<span class="search_hit">cups</span>/pdf/ps2pdf.<span class="search_hit">cups</span>
+chmod 755 /usr/lib/<span class="search_hit">cups</span>/pdf/sendpdf
+</pre>
+
+<p>
+ The first script, <code>ps2pdf.<span class="search_hit">cups</span></code> is similar to the <code>ps2pdf</code> script that comes with GhostScript. It's function is to take the PostScript data that <span class="search_hit">CUPS</span> generated from the submitted print job, and convert it into <acronym title="Portable Document Format">PDF</acronym>. The <code>sendpdf</code> script takes this <acronym title="Portable Document Format">PDF</acronym> file and delivers it via email.<br>
+ The script as found in <a href="#pdf_printer_scripts" title="slackware:cups ↵" class="wikilink1">PDF Printer Scripts</a> uses the <code>sendmail</code> program to deliver the <acronym title="Portable Document Format">PDF</acronym> file to your inbox. It uses your logon name to determine the destination email address.<br>
+ <br>
+ If you have not setup your sendmail for email delivery, or don't want email delivery of your <acronym title="Portable Document Format">PDF</acronym>'s, you can change the behaviour of the <code>/usr/lib/<span class="search_hit">cups</span>/<span class="search_hit">backend</span>/pdf</code> script. Edit the last part of that script, commenting out the email delivery part and <em>uncommenting</em> the directory part.<br>
+ That piece of script would then look like this: 
+</p>
+<pre class="code">## Normally the PDF file will be emailed to the creating user.
+## Alternatively, you can decide not to email it,
+## but leave the file on the server and restrict access by others:
+#if [ "$2" != "" ]; then
+#  $MAILBIN $2 $OUTPUTFILENAME
+#  rm -f $OUTPUTFILENAME
+#fi
+if [ "$2" != "" ]; then
+       chown $2 $OUTPUTFILENAME
+       chmod 700 $OUTPUTFILENAME
+fi
+exit 0
+</pre>
+
+<p>
+ In case you wonder where the <acronym title="Portable Document Format">PDF</acronym> files will now show up after printing to the “pdfprinter” queue: the output directory for the <acronym title="Portable Document Format">PDF</acronym> files is defined when you create your queue, for instance using the <code>lpadmin</code> command (see the last bullet point for the exact <code>lpadmin</code> commandline parameters), or by using the browser-based administrative front-end to <span class="search_hit">CUPS</span>.<br>
+ Whatever output directory you choose to use, remember to make it writeable for everyone and also set the <em>sticky bit</em> just like I did for my example directory <code>/var/spool/pdf</code> (see above).
+</p>
+</div>
+</li>
+</ul>
+
+<p>
+
+</p><p></p><div class="noteclassic"><em class="u">Reminder</em>: If you don't use the email delivery feature, you do not need to install the <code> sendpdf</code> script, and you don't have to deal with the <acronym title="Practical Extraction and Report Language"><span class="search_hit">Perl</span></acronym> software requirements!
+</div>
+
+
+<ul>
+<li class="level1"><div class="li"> <span class="search_hit">CUPS</span> uses <em>PPD</em>
+files (PostScript Printer Definition files) for the conversion of a
+submitted print job into PostScript print data which is correctly
+formatted for the printer <span class="search_hit">backend</span>. Usually the <span class="search_hit">backend</span> is a physical device (a printer) and the PPD file describes the device's capabilities. For our <acronym title="Portable Document Format">PDF</acronym> <span class="search_hit">backend</span>
+which is not a physical device at all, we just need generic PPD file
+that can output color information in PostScript format (if you prefer
+grey-scale <acronym title="Portable Document Format">PDF</acronym> files, you should of course get an appropriate non-colour PPD file).<br>
+ Adobe wrote a PPD file <code>distiller.ppd</code> which you can freely download <a href="http://www.adobe.com/support/downloads/detail.jsp?ftpID=204" class="urlextern" title="http://www.adobe.com/support/downloads/detail.jsp?ftpID=204">at their web site</a>. The Adobe site is often inaccessible, but fortunately there are many mirrors of that PPD file. Here is one: <a href="http://alien.slackbook.org/files/distiller.ppd.gz" class="urlextern" title="http://alien.slackbook.org/files/distiller.ppd.gz">distiller.ppd.gz</a>. A copy of the file is available in this Wiki as well: <a href="http://alien.slackbook.org/dokuwiki/lib/exe/fetch.php?id=slackware%3Acups&amp;cache=cache&amp;media=slackware:distiller.ppd.gz" class="media mediafile mf_gz" title="slackware:distiller.ppd.gz">distiller.ppd.gz</a><br>
+ <br>
+ Another (really free) PPD file can be found on the <a href="http://www.physik.uni-wuerzburg.de/%7Evrbehr/cups-pdf/" class="urlextern" title="http://www.physik.uni-wuerzburg.de/~vrbehr/cups-pdf/"><span class="search_hit">cups</span>-pdf</a> web site, where you can find another implementation of a <span class="search_hit">CUPS</span> <acronym title="Portable Document Format">PDF</acronym> print solution which I have not yet tried. The <acronym title="Uniform Resource Locator">URL</acronym> to this PPD file is <a href="http://www.physik.uni-wuerzburg.de/%7Evrbehr/cups-pdf/cups-pdf-CURRENT/extra/PostscriptColor.ppd" class="urlextern" title="http://www.physik.uni-wuerzburg.de/~vrbehr/cups-pdf/cups-pdf-CURRENT/extra/PostscriptColor.ppd">PostscriptColor.ppd</a> <br>
+ <br>
+ Save either of those files in the <span class="search_hit">CUPS</span> ppd-collection directory, under the name of <code>/usr/share/<span class="search_hit">cups</span>/model/pdfcolor.ppd</code> - the name does not really matter, you can keep the original filename if you wish, but since I am using that name <code>pdfcolor.ppd</code> in the rest of this example, I refer to it here as well to avoid confusion. <span class="search_hit">CUPS</span>
+PPD files are gzipped - probably to save space. It is not a requirement
+to do so for our own PPD file, but we will do it anyway inncase you did
+not download the ”<em>.gz</em>” file: <pre class="code">gzip /usr/share/<span class="search_hit">cups</span>/model/pdfcolor.ppd</pre>
+
+<p>
+ This creates the file <code>/usr/share/<span class="search_hit">cups</span>/model/pdfcolor.ppd.gz</code> which we will use in the <code>lpadmin</code> command further down.
+</p>
+</div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li"> Finally, we need to restart the <span class="search_hit">CUPS</span> service to activate our new <code>pdf</code> <span class="search_hit">backend</span>, so we can create our pdfprinter queue . <pre class="code">/etc/rc.d/rc.<span class="search_hit">cups</span> restart
+</pre>
+</div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li"> Create a new print queue using the commandline tool <code>lpadmin</code>.<br>
+ For our <acronym title="Portable Document Format">PDF</acronym> <span class="search_hit">backend</span>, the command will look like this: <pre class="code">lpadmin -p pdfprinter -v pdf:/var/spool/pdf/ -D "Generate PDF files" -E -P /usr/share/<span class="search_hit">cups</span>/model/pdfcolor.ppd.gz
+</pre>
+
+<p>
+ This creates the print queue called <strong>pdfprinter</strong> using the <strong>pdf</strong> <span class="search_hit">backend</span>, with the directory <strong>/var/spool/pdf</strong> to generate <acronym title="Portable Document Format">PDF</acronym> files in, and it will use <strong>/usr/share/<span class="search_hit">cups</span>/model/pdfcolor.ppd.gz</strong> as the PPD file for this printer definition.<br>
+ <br>
+ If you want to add the printer queue through the <span class="search_hit">CUPS</span> web interface, you should pick ”<em><acronym title="Portable Document Format">PDF</acronym> Creator</em>” as the device and ”<em>Adobe | Adobe Distiller</em>” as the Model/Type of the printer.
+</p>
+</div>
+</li>
+</ul>
+
+<p>
+
+We're ready! The <acronym title="Portable Document Format">PDF</acronym> printer setup is complete.
+</p>
+
+</div>
+
+<h3><a name="using_the_pdf_printer" id="using_the_pdf_printer">Using the PDF printer</a></h3>
+<div class="level3">
+
+<p>
+
+Client computers (or you on your local computer) can create a <acronym title="Portable Document Format">PDF</acronym> file of any printable data, by just printing to the <span class="search_hit">CUPS</span> print queue ”<em>pdfprinter</em>”. Linux client computers on the network which have <span class="search_hit">CUPS</span> configured as a client, will pick up the <span class="search_hit">CUPS</span> server automatically (<span class="search_hit">CUPS</span> services talk among each other on the network) so this will all work completely transparently.
+</p>
+
+<p>
+If you have a network with Windows computers, the best thing is to setup a Samba server on the <span class="search_hit">CUPS</span> server and let Samba use <span class="search_hit">CUPS</span>
+for printing. That way, our “pdfprinter” will automatically become
+available to these Windows computers as a network printer. Windows
+machines should install this network printer queue using a <em>Generic PostScript</em> driver. 
+</p>
+
+</div>
+
+<h2><a name="pdf_printer_scripts" id="pdf_printer_scripts">PDF Printer Scripts</a></h2>
+<div class="level2">
+<ul>
+<li class="level1"><div class="li"> Script <code>/usr/lib/<span class="search_hit">cups</span>/<span class="search_hit">backend</span>/pdf</code> <pre class="file">#!/bin/sh
+# -------------------------------------------------------------------
+# "/usr/lib/<span class="search_hit">cups</span>/<span class="search_hit">backend</span>/pdf":
+# -------------------------------------------------------------------
+#
+PDFBIN=/usr/lib/<span class="search_hit">cups</span>/pdf/ps2pdf.<span class="search_hit">cups</span>
+MAILBIN=/usr/lib/<span class="search_hit">cups</span>/pdf/sendpdf
+FILENAME=
+# filename of the PDF File
+PRINTTIME=`date +%Y-%m-%d_%H.%M.%S`
+# no argument, prints available URIs
+if [ $# -eq 0 ]; then
+  if [ ! -x "$PDFBIN" ]; then
+    exit 0
+  fi
+  echo "direct pdf \"Unknown\" \"PDF Creator\""
+  exit 0
+fi
+# case of wrong number of arguments
+if [ $# -ne 5 -a $# -ne 6 ]; then
+  echo "Usage: pdf job-id user title copies options [file]"
+  exit 1
+fi
+# get PDF directory from device URI, and check write status
+PDFDIR=${DEVICE_URI#pdf:}
+if [ ! -d "$PDFDIR" -o ! -w "$PDFDIR" ]; then
+  echo "ERROR: directory $PDFDIR not writable"
+  exit 1
+fi
+# generate output filename
+OUTPUTFILENAME=
+if [ "$3" = "" ]; then
+  OUTPUTFILENAME="$PDFDIR/unknown.pdf"
+else
+  if [ "$2" != "" ]; then
+    OUTPUTFILENAME="$PDFDIR/$2-$PRINTTIME.pdf"
+  else
+    OUTPUTFILENAME="$PDFDIR/$PRINTTIME.pdf"
+  fi
+fi
+# run ghostscript
+if [ $# -eq 6 ]; then
+  $PDFBIN $6 $OUTPUTFILENAME &gt;&amp; /dev/null
+else
+  $PDFBIN - $OUTPUTFILENAME &gt;&amp; /dev/null
+fi
+
+# Make the file visible (but read-only except for owner);
+# This is only needed when the username ($2) is not set,
+# for instance when printing a test page from the web interface.
+chmod 644 $OUTPUTFILENAME
+
+## Normally the PDF file will be emailed to the creating user.
+## Alternatively, you can decide not to email it,
+## but leave the file on the server and restrict access by others:
+if [ "$2" != "" ]; then
+  $MAILBIN $2 $OUTPUTFILENAME
+  rm -f $OUTPUTFILENAME
+fi
+#if [ "$2" != "" ]; then
+#       chown $2 $OUTPUTFILENAME
+#       chmod 700 $OUTPUTFILENAME
+#fi
+exit 0
+
+# EOF
+# -------------------------------------------------------------------
+</pre>
+</div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li"> Script <code>/usr/lib/<span class="search_hit">cups</span>/pdf/ps2pdf.<span class="search_hit">cups</span></code> <pre class="file">#!/bin/sh
+# -------------------------------------------------------------------
+# "/usr/lib/<span class="search_hit">cups</span>/pdf/ps2pdf.<span class="search_hit">cups</span>":
+# Convert PostScript to PDF.
+# -------------------------------------------------------------------
+
+OPTIONS=""
+while true
+do
+        case "$1" in
+        -*) OPTIONS="$OPTIONS $1" ;;
+        *)  break ;;
+
+        esac
+        shift
+done
+
+if [ $# -lt 1 -o $# -gt 2 ]; then
+        echo "Usage: `basename $0` [options...] input.ps [output.pdf]" 1&gt;&amp;2
+        exit 1
+fi
+
+infile=$1;
+
+if [ $# -eq 1 ]
+then
+        outfile=$1
+else
+        outfile=$2
+fi
+
+# Doing an initial 'save' helps keep fonts from being flushed between pages.
+exec gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite \
+        -sOutputFile=$outfile $OPTIONS -c save pop -f $infile
+
+# EOF
+# -------------------------------------------------------------------
+</pre>
+</div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li"> Script <code>/usr/lib/<span class="search_hit">cups</span>/pdf/sendpdf</code> <pre class="file">#!/usr/bin/<span class="search_hit">perl</span>
+# -------------------------------------------------------------------
+# "/usr/lib/<span class="search_hit">cups</span>/pdf/sendpdf":
+# Parameter: Username, PDF File
+# -------------------------------------------------------------------
+use MIME::Entity;
+# Get the ARGS
+$to = $ARGV[0];
+$pdffile = $ARGV[1];
+# Set some variables
+$mailpipe = '| /usr/sbin/sendmail -t -oi';
+$from = "pdfprinter";
+$subject ="PDF File";
+$content = "Your PDF print";
+# create the mail
+my $mail = MIME::Entity-&gt;build( Type    =&gt; 'text/plain',
+                                From    =&gt; $from,
+                                To      =&gt; $to,
+                                Subject =&gt; $subject,
+                                Data    =&gt; $content
+                              );
+# Attach the pdf file
+$mail-&gt;attach( Path     =&gt; $pdffile,
+               Type     =&gt; 'application/pdf',
+               Encoding =&gt; 'base64'
+             );
+# Open mailpipe and send the mail
+open MAIL, "$mailpipe" or die "Could not open mailpipe \"$mailpipe\" !\n";
+$mail-&gt;print(\*MAIL);
+close MAIL;
+
+# EOF
+# -------------------------------------------------------------------
+</pre>
+</div>
+</li>
+</ul>
+
+</div>
+
+<br>
+																					<!-- end content -->
+							<div class="visualClear"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div id="column-one">
+				<div class="portlet" id="p-logo">
+					<a style="background-image: url(/dokuwiki/lib/tpl/monobook-2008-07-30/user/logo.png);" href="http://alien.slackbook.org/dokuwiki/" accesskey="h" title="[ALT+H]">
+					</a>
+				</div>
+
+				<div id="p-cactions" class="portlet"> <h5>Views</h5>   <ul>
+<li id="ca-nstab-main" class="selected"><span class="curid"><a href="http://alien.slackbook.org/dokuwiki/doku.php?id=slackware:cups" class="wikilink1" title="slackware:cups">Article</a></span></li>
+<li id="ca-talk"><a href="http://alien.slackbook.org/dokuwiki/doku.php?id=wiki:talk:slackware:cups" class="wikilink1" title="wiki:talk:slackware:cups">Discussion</a></li>
+<li id="ca-edit"><a href="http://alien.slackbook.org/dokuwiki/doku.php?id=slackware:cups&amp;do=edit&amp;rev=0" accesskey="e" title="[ALT+E]">Show pagesource</a></li>
+<li id="ca-history"><a href="http://alien.slackbook.org/dokuwiki/doku.php?id=slackware:cups&amp;do=revisions" accesskey="o" title="[ALT+O]">Old revisions</a></li>
+   </ul>
+</div><div id="p-x-navigation" class="portlet"> <h5>Navigation</h5><div class="pBody">
+<ul>
+<li class="level1"><div class="li"> <a href="http://alien.slackbook.org/dokuwiki/doku.php?id=start" class="wikilink1" title="start">Main Page</a></div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li"> <a href="http://alien.slackbook.org/dokuwiki/doku.php?do=recent" class="urlextern" title="http://alien.slackbook.org/dokuwiki/doku.php?do=recent">Recent changes</a></div>
+</li>
+</ul>
+<hr>
+<ul>
+<li class="level1"><div class="li"> <a href="http://alien.slackbook.org/blog/" class="urlextern" title="http://alien.slackbook.org/blog/">Alien's Blog</a></div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li"> <a href="http://www.slackware.com/%7Ealien/" class="urlextern" title="http://www.slackware.com/~alien/">Alien's Homepage</a></div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li"> <a href="http://www.slackware.com/%7Ealien/efg/" class="urlextern" title="http://www.slackware.com/~alien/efg/">Easy Firewall Generator</a></div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li"> <a href="http://www.slackware.com/%7Ealien/AST/" class="urlextern" title="http://www.slackware.com/~alien/AST/">Alien's SlackBuild generator</a></div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li"> <a href="http://www.slackware.com/%7Ealien/slackbuilds/" class="urlextern" title="http://www.slackware.com/~alien/slackbuilds/">Alien's SlackBuilds</a></div>
+</li>
+</ul>
+<hr>
+<ul>
+<li class="level1"><div class="li"> <a href="http://www.slackware.com/changelog/current.php?cpu=i386" class="urlextern" title="http://www.slackware.com/changelog/current.php?cpu=i386">Slackware-current ChangeLog.txt</a></div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li"> <a href="http://www.slackware.it/pb" class="urlextern" title="http://www.slackware.it/pb">Package browser</a></div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li"> <a href="http://www.linuxquestions.org/questions/forumdisplay.php?f=14" class="urlextern" title="http://www.linuxquestions.org/questions/forumdisplay.php?f=14">LinuxQuestions.org</a></div>
+</li>
+</ul>
+</div></div>
+				<div id="p-personal" class="portlet"> <h5>Personal Tools</h5>  <div class="pBody">   <ul>
+<li id="pt-login"><a href="http://alien.slackbook.org/dokuwiki/doku.php?id=slackware:cups&amp;do=login">Login</a></li>
+   </ul>
+  </div></div>
+<div id="p-search" class="portlet">
+    <h5>
+        <label>Search</label></h5>
+    <div class="pBody">
+        <form action="/dokuwiki/doku.php" accept-charset="utf-8" id="dw__search" name="search">
+            <input name="do" value="search" type="hidden">
+            <input id="qsearch__in" name="id" accesskey="f" type="text">
+            <input class="searchButton" id="searchGoButton" value="Go" onclick="document.location.href='/dokuwiki/doku.php?id=' + document.search.qsearch__in.value;" type="button">&nbsp;
+            <input name="fulltext" class="searchButton" value="Search" type="submit">
+        </form>
+    </div>
+</div>
+
+<div id="p-tb" class="portlet"> <h5>Toolbox</h5>  <div class="pBody">   <ul>
+<li id="tb-whatlinkshere"><a href="http://alien.slackbook.org/dokuwiki/doku.php?id=slackware:cups&amp;do=backlink" rel="nofollow">What links here</a></li>
+<li id="tb-related"><a href="http://alien.slackbook.org/dokuwiki/doku.php?id=slackware:cups&amp;do=recent" rel="nofollow">Related changes</a></li>
+<li id="tb-wikisyn"><a href="http://alien.slackbook.org/dokuwiki/doku.php?id=wiki:syntax" rel="nofollow">Wiki syntax</a></li>
+<li id="tb-upload"><a href="http://alien.slackbook.org/dokuwiki/lib/exe/mediamanager.php?ns=slackware" rel="nofollow">Upload file</a></li>
+<li id="tb-special"><a href="http://alien.slackbook.org/dokuwiki/doku.php?idx=wiki" rel="nofollow">Special Pages</a></li>
+<li id="tb-print"><a href="http://alien.slackbook.org/dokuwiki/doku.php?id=slackware:cups&amp;rev=1266183977&amp;mbdo=print" rel="nofollow">Printable Version</a></li>
+<li id="tb-permanent"><a href="http://alien.slackbook.org/dokuwiki/doku.php?id=slackware:cups&amp;rev=1266183977" rel="nofollow">Permanent link</a></li>
+<li id="tb-cite"><a href="http://alien.slackbook.org/dokuwiki/doku.php?id=slackware:cups&amp;rev=1266183977&amp;mbdo=cite" rel="nofollow">Cite this Article</a></li>
+<li id="tb-odt"><a href="http://alien.slackbook.org/dokuwiki/doku.php?do=export_odt&amp;id=slackware:cups" rel="nofollow">OpenOffice export</a></li>
+   </ul>
+  </div></div>
+<div id="p-ads" class="portlet">sponsoring<div class="pBody">
+
+<!-- google_ads 'googleads:ads_sidebar' start -->
+<div class="ads center" style="width: 100%;">
+  <div class="ads_content"><script type="text/javascript"><!--
+google_ad_client = "pub-9641142319461660";
+/* 120x240, created 3/5/09 */
+google_ad_slot = "6985340788";
+google_ad_width = 120;
+google_ad_height = 240;
+//-->
+</script>
+<script type="text/javascript" src="doku.php_fichiers/show_ads.js">
+</script><script src="doku.php_fichiers/expansion_embed.js"></script><script src="doku.php_fichiers/test_domain.js"></script><script>google_protectAndRun("ads_core.google_render_ad", google_handleError, google_render_ad);</script><ins style="border: medium none ; margin: 0pt; padding: 0pt; display: inline-table; height: 240px; position: relative; visibility: visible; width: 120px;"><ins style="border: medium none ; margin: 0pt; padding: 0pt; display: block; height: 240px; position: relative; visibility: visible; width: 120px;"><iframe allowtransparency="true" hspace="0" id="google_ads_frame1" marginheight="0" marginwidth="0" name="google_ads_frame" src="doku.php_fichiers/ads.html" style="left: 0pt; position: absolute; top: 0pt;" vspace="0" frameborder="0" height="240" scrolling="no" width="120"></iframe></ins></ins>
+  </div>
+</div>
+
+<!-- google_ads 'googleads:ads_sidebar' end -->
+
+<div class="clearer">&nbsp;</div>
+</div></div>
+			</div>
+			<!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+<div id="footer">
+    <div id="f-poweredbyico">
+        <a target="_blank" href="http://wiki.splitbrain.org/wiki:dokuwiki" title="Driven by DokuWiki">
+            <img src="doku.php_fichiers/button-dw.png" alt="Driven by DokuWiki" height="31" width="88" border="0"></a></div>
+    <div id="f-copyrightico">
+        <a target="_blank" href="http://tatewake.com/wiki/projects:monobook_for_dokuwiki" title="Monobook for DokuWiki">
+            <img src="doku.php_fichiers/button-mb.png" alt="Monobook for DokuWiki" height="31" width="88" border="0"></a></div>
+    <a target="_blank" href="http://alien.slackbook.org/dokuwiki/feed.php" title="Recent changes RSS feed">
+        <img src="doku.php_fichiers/button-rss.png" alt="Recent changes RSS feed" height="15" width="80" border="0"></a> <a target="_blank" href="http://www.php.net/" title="Powered by PHP">
+                <img src="doku.php_fichiers/button-php.gif" alt="Powered by PHP" height="15" width="80" border="0"></a> <a target="_blank" href="http://validator.w3.org/check/referer" title="Valid XHTML 1.0">
+                        <img src="doku.php_fichiers/button-xhtml.png" alt="Valid XHTML 1.0" height="15" width="80" border="0"></a> <a target="_blank" href="http://jigsaw.w3.org/css-validator/check/referer" title="Valid CSS">
+                                <img src="doku.php_fichiers/button-css.png" alt="Valid CSS" height="15" width="80" border="0"></a>
+    <ul id="f-list">
+        <li id="lastmod">slackware/cups.txt · Last modified: 2010/02/14 21:46 by alien<br>
+        </li>
+        <li id="copyright">
+<p>
+Copyright 2006,2007,2008,2009 <a href="http://www.slackware.com/%7Ealien/" class="urlextern" title="http://www.slackware.com/~alien/"> Eric Hameleers</a>
+
+</p>
+</li>
+        <li id="usermod"><br>
+        </li>
+    </ul>
+</div>
+		</div>
+<a href="http://alien.slackbook.org/dokuwiki/doku.php?do=recent" accesskey="r" style="visibility: hidden;" rel="nofollow">&nbsp;</a>
+		<img src="doku.php_fichiers/indexer.gif" alt="" height="1" width="1">	</body></html>

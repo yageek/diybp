@@ -1,0 +1,39 @@
+#!/usr/bin/perl -w
+
+
+if($#ARGV < 0) {
+print "Wrong arguments:\n";
+print "\t
+argv[1]
+    The job ID
+argv[2]
+    The user printing the job
+argv[3]
+    The job name/title
+argv[4]
+    The number of copies to print
+argv[5]
+    The options that were provided when the job was submitted
+argv[6]
+    The file to print (first program only) \n";
+exit;
+}
+
+my($job_id,$job_user,$job_tile,$job_copy,$job_options,$job_file) = @ARGV;
+print STDERR "Hello _world\n";
+
+print "The job has ID:$job_id and the file is $job_file\n";
+
+
+if(!open(FILE,">/home/yaya/print_$job_file")){
+
+print  "Error by trying to open $file_in\n";
+exit;
+}
+
+print FILE "Hello _world\n";
+exit 0;
+
+
+
+
