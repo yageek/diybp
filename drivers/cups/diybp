@@ -1,39 +1,62 @@
-#!/usr/bin/perl -w
+#!/bin/sh
+# -------------------------------------------------------------------
+# DIYBP backend for the braille printers - test convertion to text
+#Command to add backend lpadmin -p diybp-printer -v diybp:/var/spool/diybp/ -D "Genereate TXT file" -E -P /usr/share/ppd/diybp/diybp.ppd 
+# -------------------------------------------------------------------
+#
+PDFBIN=/usr/bin/ps2txt
+# filename of the txt file
+PRINTTIME=`date +%Y-%m-%d_%H.%M.%S`
+# no argument, prints available URIs
+if [ $# -eq 0 ]; then
+   echo "direct text \"Unknown\" \"Text Creator\""
+  exit 0
+fi
+# case of wrong number of arguments
+if [ $# -ne 5 -a $# -ne 6 ]; then
+  echo "Usage: txt job-id user title copies options [file]"
+  exit 1
+fi
+# get PDF directory from device URI, and check write status
+PDFDIR=${DEVICE_URI#diybp:}
+if [ ! -d "$PDFDIR" -o ! -w "$PDFDIR" ]; then
+  echo "ERROR: directory $PDFDIR not writable"
+  exit 1
+fi
+# generate output filename
+OUTPUTFILENAME=
+if [ "$3" = "" ]; then
+  OUTPUTFILENAME="$PDFDIR/unknown.txt"
+else
+  if [ "$2" != "" ]; then
+    OUTPUTFILENAME="$PDFDIR/$2-$PRINTTIME.txt"
+  else
+    OUTPUTFILENAME="$PDFDIR/$PRINTTIME.txt"
+  fi
+fi
+# run cp
+if [ $# -eq 6 ]; then
+	$PDFBIN $6 $OUTPUTFILENAME >& /dev/null
+else
+  	$PDFBIN - $OUTPUTFILENAME >& /dev/null
+fi
+
+# Make the file visible (but read-only except for owner);
+# This is only needed when the username ($2) is not set,
+# for instance when printing a test page from the web interface.
+chmod 644 $OUTPUTFILENAME
 
 
-if($#ARGV < 0) {
-print "Wrong arguments:\n";
-print "\t
-argv[1]
-    The job ID
-argv[2]
-    The user printing the job
-argv[3]
-    The job name/title
-argv[4]
-    The number of copies to print
-argv[5]
-    The options that were provided when the job was submitted
-argv[6]
-    The file to print (first program only) \n";
-exit;
-}
+## Normally the PDF file will be emailed to the creating user.
+## Alternatively, you can decide not to email it,
+## but leave the file on the server and restrict access by others:
 
-my($job_id,$job_user,$job_tile,$job_copy,$job_options,$job_file) = @ARGV;
-print STDERR "Hello _world\n";
+#if [ "$2" != "" ]; then
+#       chown $2 $OUTPUTFILENAME
+#       chmod 700 $OUTPUTFILENAME
+#fi
+exit 0
 
-print "The job has ID:$job_id and the file is $job_file\n";
-
-
-if(!open(FILE,">/home/yaya/print_$job_file")){
-
-print  "Error by trying to open $file_in\n";
-exit;
-}
-
-print FILE "Hello _world\n";
-exit 0;
-
-
-
+# EOF
+# -------------------------------------------------------------------
 
