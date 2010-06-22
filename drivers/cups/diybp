@@ -1,7 +1,9 @@
 #!/bin/sh
 # -------------------------------------------------------------------
 # DIYBP backend for the braille printers - test convertion to text
-#Command to add backend lpadmin -p diybp-printer -v diybp:/var/spool/diybp/ -D "Genereate TXT file" -E -P /usr/share/ppd/diybp/diybp.ppd 
+# this file is to copy in /usr/lib/cups/backend/diybp
+# Command to add backend lpadmin -p diybp-printer -v diybp:/var/spool/diybp/ -D "Genereate TXT file" -E -P /usr/share/ppd/diybp/diybp.ppd 
+# This print the document within the /var/spool/diybp directory ( you had to create it before and gave him permissions - See : http://alien.slackbook.org/dokuwiki/doku.php?id=slackware:cups#installing_a_new_cups_backend )
 # -------------------------------------------------------------------
 #
 PDFBIN=/usr/bin/ps2txt
