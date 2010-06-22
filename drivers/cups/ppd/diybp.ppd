@@ -1,25 +1,28 @@
 *PPD-Adobe: "4.3"
-*%%%% PPD file for ditbp with CUPS.
+*%%%% PPD file for diybp with CUPS.
 *%%%% Created by the CUPS PPD Compiler CUPS v1.4.1.
 *FormatVersion: "4.3"
 *FileVersion: "1.0"
 *LanguageVersion: English
 *LanguageEncoding: ISOLatin1
 *PCFileName: "diybp.ppd"
-*Product: "(Foo LaserProofer 2000)"
+*Product: "(diybp)"
 *Manufacturer: "Geek5s"
-*ModelName: "Geek5s ditbp"
-*ShortNickName: "Geek5s ditbp"
-*NickName: "Geek5s ditbp, 1.0"
-*PSVersion: "(3010) 0"
+*ModelName: "Geek5s diybp"
+*ShortNickName: "Geek5s diybp"
+*NickName: "Geek5s diybp, 1.0"
+*PSVersion: "(3010.000) 0"
 *LanguageLevel: "3"
 *ColorDevice: False
 *DefaultColorSpace: Gray
 *FileSystem: False
 *Throughput: "1"
-*LandscapeOrientation: Minus90
+*LandscapeOrientation: Plus90
 *TTRasterizer: Type42
-*% Driver-defined attributes...
+*cupsVersion: 1.4
+*cupsModelNumber: 0
+*cupsManualCopies: False
+*cupsFilter: "application/vnd.cups-postscript 50 pstopdf"
 *cupsLanguages: "en"
 *OpenUI *PageSize/Media Size: PickOne
 *OrderDependency: 10 AnySetup *PageSize
@@ -35,6 +38,11 @@
 *ImageableArea A4/A4: "0 0 595 842"
 *DefaultPaperDimension: A4
 *PaperDimension A4/A4: "595 842"
+*OpenUI *Resolution/Resolution: PickOne
+*OrderDependency: 10 AnySetup *Resolution
+*DefaultResolution: 600dpi
+*Resolution 600dpi/600 DPI: "<</HWResolution[600 600]/cupsBitsPerColor 8/cupsRowCount 0/cupsRowFeed 0/cupsRowStep 0>>setpagedevice"
+*CloseUI: *Resolution
 *DefaultFont: Courier
 *Font AvantGarde-Book: Standard "(1.05)" Standard ROM
 *Font AvantGarde-BookOblique: Standard "(1.05)" Standard ROM
@@ -71,4 +79,4 @@
 *Font Times-Roman: Standard "(1.05)" Standard ROM
 *Font ZapfChancery-MediumItalic: Standard "(1.05)" Standard ROM
 *Font ZapfDingbats: Special "(001.005)" Special ROM
-*% End of diybp.ppd, 03129 bytes.
+*% End of diybp.ppd, 03468 bytes.

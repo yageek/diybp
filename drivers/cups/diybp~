@@ -2,11 +2,11 @@
 # -------------------------------------------------------------------
 # DIYBP backend for the braille printers - test convertion to text
 # this file is to copy in /usr/lib/cups/backend/diybp
-#Command to add backend lpadmin -p diybp-printer -v diybp:/var/spool/diybp/ -D "Genereate TXT file" -E -P /usr/share/ppd/diybp/diybp.ppd 
- # This print the document within the /var/spool/diybp directory ( you had to create it before and gave him permissions - See : http://alien.slackbook.org/dokuwiki/doku.php?id=slackware:cups#installing_a_new_cups_backend )
+# Command to add backend lpadmin -p diybp-printer -v diybp:/var/spool/diybp/ -D "Genereate TXT file" -E -P /usr/share/ppd/diybp/diybp.ppd 
+# This print the document within the /var/spool/diybp directory ( you had to create it before and gave him permissions - See : http://alien.slackbook.org/dokuwiki/doku.php?id=slackware:cups#installing_a_new_cups_backend )
 # -------------------------------------------------------------------
 #
-PDFBIN=/usr/bin/ps2txt
+PDFBIN=/usr/bin/pdftotext
 # filename of the txt file
 PRINTTIME=`date +%Y-%m-%d_%H.%M.%S`
 # no argument, prints available URIs
@@ -40,7 +40,9 @@ fi
 if [ $# -eq 6 ]; then
 	$PDFBIN $6 $OUTPUTFILENAME >& /dev/null
 else
-  	$PDFBIN - $OUTPUTFILENAME >& /dev/null
+	cat - > $PDFDIR/temp_$PRINTTIME.pdf
+  	$PDFBIN $PDFDIR/temp_$PRINTTIME.pdf $OUTPUTFILENAME >& /dev/null
+
 fi
 
 # Make the file visible (but read-only except for owner);
