@@ -1,4 +1,4 @@
-update=sam. 22 janv. 2011 13:45:16 CET
+update=sam. 22 janv. 2011 13:59:50 CET
 version=1
 last_client=eeschema
 [cvpcb]
@@ -143,4 +143,4 @@ LibName27=opto
 LibName28=atmel
 LibName29=contrib
 LibName30=valves
-LibName31=l297
+LibName31=stepper_drivers

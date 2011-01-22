@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date sam. 22 janv. 2011 13:37:15 CET
+EESchema Schematic File Version 2  date sam. 22 janv. 2011 14:02:57 CET
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -29,7 +29,9 @@ LIBS:opto
 LIBS:atmel
 LIBS:contrib
 LIBS:valves
-EELAYER 43  0
+LIBS:stepper_drivers
+LIBS:diybp-cache
+EELAYER 24  0
 EELAYER END
 $Descr A4 11700 8267
 Sheet 1 2
